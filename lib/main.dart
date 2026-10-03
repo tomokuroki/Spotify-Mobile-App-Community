@@ -13,7 +13,9 @@ class MainApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       initialRoute: '/',
-      routes: {'/': (context) => BottomNav()},
+      routes: {
+        '/': (context) => BottomNav()
+        },
     );
   }
 }
