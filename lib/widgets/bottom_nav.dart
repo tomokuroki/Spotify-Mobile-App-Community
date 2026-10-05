@@ -3,6 +3,7 @@ import 'package:spotifymobileappcommunity/screens/home/home_screen.dart';
 import 'package:spotifymobileappcommunity/screens/library/library_screen.dart';
 import 'package:spotifymobileappcommunity/screens/premium/premium_screen.dart';
 import 'package:spotifymobileappcommunity/screens/search/search_screen.dart';
+import 'package:spotifymobileappcommunity/screens/settings/settings_screen.dart';
 
 class BottomNav extends StatefulWidget {
   const BottomNav({super.key});
@@ -14,31 +15,47 @@ class BottomNav extends StatefulWidget {
 class _BottomNavState extends State<BottomNav> {
   int _currentIndex = 0;
 
-  static const List<Widget> _screens = [
-    HomeScreen(),
-    SearchScreen(),
-    LibraryScreen(),
-    PremiumScreen(),
-  ];
-
   @override
   Widget build(BuildContext context) {
+    const screens = [SearchScreen(), LibraryScreen(), PremiumScreen()];
+    final mainScreens = [
+      HomeScreen(onSettingsPressed: _openSettings),
+      ...screens,
+    ];
+
     return Scaffold(
       extendBody: true,
-      body: IndexedStack(index: _currentIndex, children: _screens),
-      bottomNavigationBar: _SpotifyBottomBar(
+      body: IndexedStack(index: _currentIndex, children: mainScreens),
+      bottomNavigationBar: SpotifyBottomBar(
         currentIndex: _currentIndex,
-        onItemSelected: (index) {
-          if (index == _currentIndex) return;
-          setState(() => _currentIndex = index);
-        },
+        onItemSelected: _selectScreen,
       ),
     );
   }
+
+  Future<void> _openSettings() async {
+    final selectedIndex = await Navigator.push<int>(
+      context,
+      MaterialPageRoute(
+        builder: (context) => SettingsScreen(
+          onNavigationSelected: (index) => Navigator.pop(context, index),
+        ),
+      ),
+    );
+    if (selectedIndex != null) {
+      _selectScreen(selectedIndex);
+    }
+  }
+
+  void _selectScreen(int index) {
+    if (index == _currentIndex) return;
+    setState(() => _currentIndex = index);
+  }
 }
 
-class _SpotifyBottomBar extends StatelessWidget {
-  const _SpotifyBottomBar({
+class SpotifyBottomBar extends StatelessWidget {
+  const SpotifyBottomBar({
+    super.key,
     required this.currentIndex,
     required this.onItemSelected,
   });
@@ -71,14 +88,15 @@ class _SpotifyBottomBar extends StatelessWidget {
         child: Padding(
           padding: EdgeInsets.only(bottom: bottomInset),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: List.generate(_items.length, (index) {
               final item = _items[index];
-              return _BottomBarItem(
-                label: item.label,
-                assetPath: item.assetPath,
-                selected: currentIndex == index,
-                onTap: () => onItemSelected(index),
+              return Expanded(
+                child: _BottomBarItem(
+                  label: item.label,
+                  assetPath: item.assetPath,
+                  selected: currentIndex == index,
+                  onTap: () => onItemSelected(index),
+                ),
               );
             }),
           ),
@@ -109,8 +127,9 @@ class _BottomBarItem extends StatelessWidget {
       button: true,
       selected: selected,
       label: label,
-      child: SizedBox.square(
-        dimension: 80,
+      child: SizedBox(
+        height: 80,
+        width: double.infinity,
         child: GestureDetector(
           behavior: HitTestBehavior.opaque,
           onTap: onTap,

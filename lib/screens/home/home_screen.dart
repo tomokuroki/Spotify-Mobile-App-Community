@@ -5,7 +5,9 @@ import 'package:spotifymobileappcommunity/screens/home/widgets/your_shows.dart';
 import 'package:flutter/services.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+  const HomeScreen({super.key, required this.onSettingsPressed});
+
+  final VoidCallback onSettingsPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +42,6 @@ class HomeScreen extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-
                       Row(
                         children: [
                           IconButton(
@@ -60,7 +61,7 @@ class HomeScreen extends StatelessWidget {
                             ),
                           ),
                           IconButton(
-                            onPressed: () {},
+                            onPressed: onSettingsPressed,
                             icon: Image.asset(
                               'assets/icons/Setting.png',
                               width: 24,
