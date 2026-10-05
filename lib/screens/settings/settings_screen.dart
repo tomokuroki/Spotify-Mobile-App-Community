@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:spotifymobileappcommunity/screens/settings/widgets/datasaver.dart';
 import 'package:spotifymobileappcommunity/screens/settings/widgets/freeaccount.dart';
 import 'package:spotifymobileappcommunity/screens/settings/widgets/viewprofile.dart';
 import 'package:spotifymobileappcommunity/widgets/bottom_nav.dart';
@@ -66,6 +67,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
               ),
               freeaccount(),
               viewprofile(),
+              datasaver(),
 
               const Expanded(child: SizedBox()),
             ],
