@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:spotifymobileappcommunity/widgets/bottom_nav.dart';
+import 'package:spotifymobileappcommunity/screens/splash/splash_screen.dart';
 
 void main() {
   runApp(const MainApp());
@@ -12,7 +12,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: const BottomNav(),
+      home: const SplashScreen(), // BottomNav
     );
   }
 }
