@@ -1,7 +1,15 @@
 import 'package:flutter/material.dart';
 
-class MiniPlayer extends StatelessWidget {
+class MiniPlayer extends StatefulWidget {
   const MiniPlayer({super.key});
+
+  @override
+  State<MiniPlayer> createState() => _MiniPlayerState();
+}
+
+class _MiniPlayerState extends State<MiniPlayer> {
+  bool isPlaying = false;
+  bool isLike = true;
 
   @override
   Widget build(BuildContext context) {
@@ -64,17 +72,25 @@ class MiniPlayer extends StatelessWidget {
                     ),
 
                     IconButton(
-                      onPressed: () {},
-                      icon: const Icon(
-                        Icons.favorite,
-                        color: Color(0xFF1ED760),
+                      onPressed: () {
+                        setState(() {
+                          isLike = !isLike;
+                        });
+                      },
+                      icon: Icon(
+                        isLike ? Icons.favorite : Icons.favorite_border,
+                        color: isLike ? const Color(0xFF1ED760) : Colors.white,
                       ),
                     ),
 
                     IconButton(
-                      onPressed: () {},
-                      icon: const Icon(
-                        Icons.play_arrow,
+                      onPressed: () {
+                        setState(() {
+                          isPlaying = !isPlaying;
+                        });
+                      },
+                      icon: Icon(
+                        isPlaying ? Icons.pause : Icons.play_arrow,
                         color: Colors.white,
                         size: 32,
                       ),
