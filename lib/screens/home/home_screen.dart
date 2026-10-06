@@ -6,10 +6,7 @@ import 'package:spotifymobileappcommunity/screens/home/widgets/your_shows.dart';
 import 'package:spotifymobileappcommunity/widgets/mini_player.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({
-    super.key,
-    required this.onSettingsPressed,
-  });
+  const HomeScreen({super.key, required this.onSettingsPressed});
 
   final VoidCallback onSettingsPressed;
 
@@ -83,15 +80,25 @@ class HomeScreen extends StatelessWidget {
               ),
 
               Expanded(
-                child: SingleChildScrollView(
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 16),
-                    child: Column(
-                      children: const [
-                        RecentlyPlayed(),
-                        TogetYouStarted(),
-                        YourShows(),
-                      ],
+                child: RefreshIndicator(
+                  color: Colors.white,
+                  backgroundColor: const Color(0xFF282828),
+                  onRefresh: () async {
+                    await Future.delayed(const Duration(seconds: 1));
+
+                    // Future Refresh
+                  },
+                  child: SingleChildScrollView(
+                    physics: const AlwaysScrollableScrollPhysics(),
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 16),
+                      child: Column(
+                        children: const [
+                          RecentlyPlayed(),
+                          TogetYouStarted(),
+                          YourShows(),
+                        ],
+                      ),
                     ),
                   ),
                 ),
