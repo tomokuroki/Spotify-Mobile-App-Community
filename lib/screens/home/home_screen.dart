@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:spotifymobileappcommunity/screens/home/widgets/recently_played.dart';
 import 'package:spotifymobileappcommunity/screens/home/widgets/togetyoustarted.dart';
 import 'package:spotifymobileappcommunity/screens/home/widgets/your_shows.dart';
-import 'package:flutter/services.dart';
+import 'package:spotifymobileappcommunity/widgets/mini_player.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key, required this.onSettingsPressed});
+  const HomeScreen({
+    super.key,
+    required this.onSettingsPressed,
+  });
 
   final VoidCallback onSettingsPressed;
 
@@ -35,13 +39,14 @@ class HomeScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       const Text(
-                        "Good morning",
+                        'Good morning',
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
+
                       Row(
                         children: [
                           IconButton(
@@ -52,6 +57,7 @@ class HomeScreen extends StatelessWidget {
                               height: 24,
                             ),
                           ),
+
                           IconButton(
                             onPressed: () {},
                             icon: Image.asset(
@@ -60,6 +66,7 @@ class HomeScreen extends StatelessWidget {
                               height: 24,
                             ),
                           ),
+
                           IconButton(
                             onPressed: onSettingsPressed,
                             icon: Image.asset(
@@ -81,7 +88,6 @@ class HomeScreen extends StatelessWidget {
                     padding: const EdgeInsets.only(left: 16),
                     child: Column(
                       children: const [
-                        // widgets
                         RecentlyPlayed(),
                         TogetYouStarted(),
                         YourShows(),
@@ -90,6 +96,9 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
               ),
+
+              // mini player
+              const MiniPlayer(),
             ],
           ),
         ),

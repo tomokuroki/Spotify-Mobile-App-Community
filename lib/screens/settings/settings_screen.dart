@@ -5,6 +5,7 @@ import 'package:spotifymobileappcommunity/screens/settings/widgets/freeaccount.d
 import 'package:spotifymobileappcommunity/screens/settings/widgets/videopodcasts.dart';
 import 'package:spotifymobileappcommunity/screens/settings/widgets/viewprofile.dart';
 import 'package:spotifymobileappcommunity/widgets/bottom_nav.dart';
+import 'package:spotifymobileappcommunity/widgets/mini_player.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({super.key, this.onNavigationSelected});
@@ -72,7 +73,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       const viewprofile(),
                       const datasaver(),
                       const videopodcasts(),
-                      const videopodcasts(), // template
+                      const videopodcasts(),
                     ],
                   ),
                 ),
@@ -81,11 +82,19 @@ class _SettingsScreenState extends State<SettingsScreen> {
           ),
         ),
 
-        bottomNavigationBar: SpotifyBottomBar(
-          currentIndex: 0,
-          onItemSelected: (index) {
-            widget.onNavigationSelected?.call(index);
-          },
+        bottomNavigationBar: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            // mini player
+            const MiniPlayer(),
+
+            SpotifyBottomBar(
+              currentIndex: 0,
+              onItemSelected: (index) {
+                widget.onNavigationSelected?.call(index);
+              },
+            ),
+          ],
         ),
       ),
     );
