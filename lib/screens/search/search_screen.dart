@@ -62,10 +62,7 @@ class SearchScreen extends StatelessWidget {
                     ),
                     decoration: InputDecoration(
                       prefixIcon: Padding(
-                        padding: const EdgeInsets.only(
-                          left: 12,
-                          right: 8,
-                        ),
+                        padding: const EdgeInsets.only(left: 12, right: 8),
                         child: Image.asset(
                           'assets/icons/VectorSearch.png',
                           width: 24,
@@ -99,9 +96,7 @@ class SearchScreen extends StatelessWidget {
                         borderRadius: BorderRadius.circular(4),
                         borderSide: BorderSide.none,
                       ),
-                      contentPadding: const EdgeInsets.symmetric(
-                        vertical: 0,
-                      ),
+                      contentPadding: const EdgeInsets.symmetric(vertical: 0),
                     ),
                   ),
                 ),
@@ -111,11 +106,7 @@ class SearchScreen extends StatelessWidget {
 
               Expanded(
                 child: SingleChildScrollView(
-                  child: Column(
-                    children: const [
-                      browseall(),
-                    ],
-                  ),
+                  child: Column(children: const [browseall()]),
                 ),
               ),
 
