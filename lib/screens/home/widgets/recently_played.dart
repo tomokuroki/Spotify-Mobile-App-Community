@@ -73,7 +73,7 @@ class _RecentlyPlayedState extends State<RecentlyPlayed> {
                     Container(
                       width: 144,
                       height: 144,
-                      color: Colors.red,
+                      //color: Colors.red,
                       child: Image.asset(
                         'assets/home/9c03e91254dd2e2b776b8583805df75d8fb4c860.jpg',
                       ),
@@ -94,7 +94,7 @@ class _RecentlyPlayedState extends State<RecentlyPlayed> {
                     Container(
                       width: 144,
                       height: 144,
-                      color: Colors.pink,
+                      //color: Colors.pink,
                       child: Image.asset(
                         'assets/home/d5e5b17eecdf9ab83970d7274f8a4d202ec9785e.jpg',
                       ),
@@ -102,6 +102,28 @@ class _RecentlyPlayedState extends State<RecentlyPlayed> {
                     const SizedBox(height: 8),
                     const Text(
                       "For You",
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ],
+                ),
+                const SizedBox(width: 16),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      width: 144,
+                      height: 144,
+                      // color: Colors.pink,
+                      child: ClipRRect(
+                        borderRadius: BorderRadiusGeometry.circular(100),
+                        child: Image.asset(
+                          'assets/home/c8d675164518b407cf15f3c73ca6a8497cd0407f.jpg',
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 8),
+                    const Text(
+                      "Michael Jackson",
                       style: TextStyle(color: Colors.white),
                     ),
                   ],
