@@ -17,7 +17,12 @@ class _BottomNavState extends State<BottomNav> {
 
   @override
   Widget build(BuildContext context) {
-    const screens = [SearchScreen(), LibraryScreen(), PremiumScreen()];
+    const screens = [
+      SearchScreen(),
+      LibraryScreen(),
+      PremiumScreen(),
+    ];
+
     final mainScreens = [
       HomeScreen(onSettingsPressed: _openSettings),
       ...screens,
@@ -25,7 +30,10 @@ class _BottomNavState extends State<BottomNav> {
 
     return Scaffold(
       extendBody: true,
-      body: IndexedStack(index: _currentIndex, children: mainScreens),
+      body: IndexedStack(
+        index: _currentIndex,
+        children: mainScreens,
+      ),
       bottomNavigationBar: SpotifyBottomBar(
         currentIndex: _currentIndex,
         onItemSelected: _selectScreen,
@@ -42,6 +50,7 @@ class _BottomNavState extends State<BottomNav> {
         ),
       ),
     );
+
     if (selectedIndex != null) {
       _selectScreen(selectedIndex);
     }
@@ -49,7 +58,10 @@ class _BottomNavState extends State<BottomNav> {
 
   void _selectScreen(int index) {
     if (index == _currentIndex) return;
-    setState(() => _currentIndex = index);
+
+    setState(() {
+      _currentIndex = index;
+    });
   }
 }
 
@@ -64,10 +76,26 @@ class SpotifyBottomBar extends StatelessWidget {
   final ValueChanged<int> onItemSelected;
 
   static const _items = [
-    _NavigationItem('Home', 'assets/icons/Home States.png'),
-    _NavigationItem('Search', 'assets/icons/Search States.png'),
-    _NavigationItem('Your Library', 'assets/icons/Library States.png'),
-    _NavigationItem('Premium', 'assets/icons/Premium States.png'),
+    _NavigationItem(
+      'Home',
+      'assets/icons/Home States.png',
+      'assets/icons/home_filled.png',
+    ),
+    _NavigationItem(
+      'Search',
+      'assets/icons/Search States.png',
+      'assets/icons/search_filled.png',
+    ),
+    _NavigationItem(
+      'Your Library',
+      'assets/icons/Library States.png',
+      'assets/icons/library_filled.png',
+    ),
+    _NavigationItem(
+      'Premium',
+      'assets/icons/Premium States.png',
+      'assets/icons/premium_filled.png',
+    ),
   ];
 
   @override
@@ -94,10 +122,12 @@ class SpotifyBottomBar extends StatelessWidget {
           child: Row(
             children: List.generate(_items.length, (index) {
               final item = _items[index];
+
               return Expanded(
                 child: _BottomBarItem(
                   label: item.label,
                   assetPath: item.assetPath,
+                  selectedAssetPath: item.selectedAssetPath,
                   selected: currentIndex == index,
                   onTap: () => onItemSelected(index),
                 ),
@@ -114,18 +144,22 @@ class _BottomBarItem extends StatelessWidget {
   const _BottomBarItem({
     required this.label,
     required this.assetPath,
+    required this.selectedAssetPath,
     required this.selected,
     required this.onTap,
   });
 
   final String label;
   final String assetPath;
+  final String selectedAssetPath;
   final bool selected;
   final VoidCallback onTap;
 
   @override
   Widget build(BuildContext context) {
-    final color = selected ? Colors.white : const Color(0xFFB3B3B3);
+    final color = selected
+        ? Colors.white
+        : const Color(0xFFB3B3B3);
 
     return Semantics(
       button: true,
@@ -141,9 +175,14 @@ class _BottomBarItem extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                ColorFiltered(
-                  colorFilter: ColorFilter.mode(color, BlendMode.srcIn),
-                  child: Image.asset(assetPath, width: 24, height: 24),
+                Image.asset(
+                  selected
+                      ? selectedAssetPath
+                      : assetPath,
+                  width: 24,
+                  height: 24,
+                  color: color,
+                  colorBlendMode: BlendMode.srcIn,
                 ),
                 const SizedBox(height: 5),
                 Text(
@@ -166,8 +205,13 @@ class _BottomBarItem extends StatelessWidget {
 }
 
 class _NavigationItem {
-  const _NavigationItem(this.label, this.assetPath);
+  const _NavigationItem(
+    this.label,
+    this.assetPath,
+    this.selectedAssetPath,
+  );
 
   final String label;
   final String assetPath;
+  final String selectedAssetPath;
 }
