@@ -81,7 +81,11 @@ class SpotifyBottomBar extends StatelessWidget {
           gradient: LinearGradient(
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
-            colors: [Color(0x00000000), Color(0x66000000), Color(0xE6000000)],
+            colors: [
+              Color.fromARGB(255, 0, 0, 0),
+              Color(0x66000000),
+              Color(0xE6000000),
+            ],
             stops: [0, 0.58, 1],
           ),
         ),

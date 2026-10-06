@@ -26,6 +26,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
       ),
       child: Scaffold(
         backgroundColor: const Color(0xFF121212),
+
         body: SafeArea(
           child: Column(
             children: [
@@ -33,54 +34,57 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 height: 64,
                 width: double.infinity,
                 color: const Color(0xFF282828),
-                padding: const EdgeInsets.symmetric(),
-                child: SizedBox(
-                  height: 48,
-                  child: Stack(
-                    alignment: Alignment.center,
-                    children: [
-                      Align(
-                        alignment: Alignment.centerLeft,
-                        child: IconButton(
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                          icon: const Icon(
-                            Icons.arrow_back,
-                            color: Colors.white,
-                            size: 28,
-                          ),
-                          splashRadius: 24,
-                        ),
-                      ),
-                      const Text(
-                        'Settings',
-                        style: TextStyle(
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: IconButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        icon: const Icon(
+                          Icons.arrow_back,
                           color: Colors.white,
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          decoration: TextDecoration.none,
+                          size: 28,
                         ),
+                        splashRadius: 24,
                       ),
+                    ),
+
+                    const Text(
+                      'Settings',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      const freeaccount(),
+                      const viewprofile(),
+                      const datasaver(),
+                      const videopodcasts(),
+                      const videopodcasts(), // template
                     ],
                   ),
                 ),
               ),
-              freeaccount(),
-              viewprofile(),
-              datasaver(),
-              videopodcasts(),
-              const Expanded(child: SizedBox()),
             ],
           ),
         ),
+
         bottomNavigationBar: SpotifyBottomBar(
           currentIndex: 0,
           onItemSelected: (index) {
-            final onNavigationSelected = widget.onNavigationSelected;
-            if (onNavigationSelected != null) {
-              onNavigationSelected(index);
-            }
+            widget.onNavigationSelected?.call(index);
           },
         ),
       ),
